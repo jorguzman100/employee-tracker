@@ -1,0 +1,27 @@
+{
+  "name": "12_Employee_Tracker",
+  "version": "1.0.0",
+  "description": "A solution for managing a company's employees using node, inquirer, and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorguzman100/12_Employee_Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorguzman100/12_Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/jorguzman100/12_Employee_Tracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inquirer": "^7.2.0",
+    "mysql": "^2.18.1"
+  }
+}
