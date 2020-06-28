@@ -1,5 +1,5 @@
 {
-  "name": "12_Employee_Tracker",
+  "name": "employee-tracker",
   "version": "1.0.0",
   "description": "A solution for managing a company's employees using node, inquirer, and MySQL",
   "main": "server.js",
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/jorguzman100/12_Employee_Tracker#readme",
   "dependencies": {
-    "express": "^4.17.1",
     "inquirer": "^7.2.0",
     "mysql": "^2.18.1"
   }
