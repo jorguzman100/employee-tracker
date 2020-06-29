@@ -21,6 +21,7 @@
   "homepage": "https://github.com/jorguzman100/12_Employee_Tracker#readme",
   "dependencies": {
     "inquirer": "^7.2.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0"
   }
 }
