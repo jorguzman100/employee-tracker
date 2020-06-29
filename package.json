@@ -2,11 +2,11 @@
   "name": "employee-tracker",
   "version": "1.0.0",
   "description": "A solution for managing a company's employees using node, inquirer, and MySQL",
-  "main": "server.js",
+  "main": "employee.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "watch": "nodemon server.js"
+    "start": "node employee.js",
+    "watch": "nodemon employee.js"
   },
   "repository": {
     "type": "git",
