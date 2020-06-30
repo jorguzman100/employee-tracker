@@ -83,9 +83,8 @@ const selectOptions = async (crud, table) => {
         fields = updateAnswer.fields;
         where = updateAnswer.where; */
     } else if (crud === 'Delete' && table === 'Roles') {
-        /* updateAnswer = await promptUpdateRolesFields();
-        fields = updateAnswer.fields;
-        where = updateAnswer.where; */
+        updateAnswer = await promptDeleteRoles();
+        where = `role_id=${updateAnswer.role_id}`;
     } else if (crud === 'Delete' && table === 'Departments') {
         updateAnswer = await promptDeleteDepartments();
         where = `department_id=${updateAnswer.department_id}`;
@@ -102,6 +101,16 @@ const promptDeleteDepartments = async () => {
             type: 'input',
             name: 'department_id',
             message: 'department_id: '
+        }
+    ]);
+}
+
+const promptDeleteRoles = async () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'role_id',
+            message: 'role_id: '
         }
     ]);
 }
