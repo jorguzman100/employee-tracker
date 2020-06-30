@@ -32,8 +32,8 @@ const selectTable = async (crud) => {
 
     if (answer.table === '<- Go back') {
         selectCRUD();
-    } 
-    
+    }
+
     // Display the working table as reference 
     else if (crud === 'Read') {
         await selectOptions(crud, answer.table);
@@ -77,7 +77,6 @@ const selectOptions = async (crud, table) => {
         where = updateAnswer.where;
     }
 
-    // Run main query
     runMainQuery(crud, table, fields, where, '*');
 }
 
@@ -89,15 +88,17 @@ const promptUpdateDepartmentsFields = async () => {
             message: 'department_id: '
         }
     ]);
-    const query5 = await new Query('Read Where', 'Departments', [{ department_id: answer1.department_id }], '', '*').buildQuery();
+
+    // (crud, table, options, where, ...columns)
+    const query5 = await new Query('Read Where', 'Departments', [{}], `department_id=${answer1.department_id}`, '*').buildQuery();
     console.log('query5: ', query5);
-    console.log('department_name: ', query5[0].department_name);
+    console.log('department_name: ', query5.data[0].department_name);
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
             name: 'department_name',
             message: 'department_name:',
-            default: query5[0].department_name
+            default: query5.data[0].department_name
         }
     ]);
     return { where: `department_id=${answer1.department_id}`, fields: answer2 }
@@ -112,27 +113,27 @@ const promptUpdateRolesFields = async () => {
             message: 'role_id: '
         }
     ]);
-    const query4 = await new Query('Read Where', 'Roles', [{ role_id: answer1.role_id }], '', '*').buildQuery();
+    const query4 = await new Query('Read Where', 'Roles', [{}], `role_id=${answer1.role_id}`, '*').buildQuery();
     console.log('query4: ', query4);
-    console.log('title: ', query4[0].title);
+    console.log('title: ', query4.data[0].title);
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
             name: 'title',
             message: 'title:',
-            default: query4[0].title
+            default: query4.data[0].title
         },
         {
             type: 'input',
             name: 'salary',
             message: 'salary:',
-            default: query4[0].salary
+            default: query4.data[0].salary
         },
         {
             type: 'input',
             name: 'department_id',
             message: 'department_id:',
-            default: query4[0].department_id
+            default: query4.data[0].department_id
         }
     ]);
     return { where: `role_id=${answer1.role_id}`, fields: answer2 }
@@ -147,33 +148,33 @@ const promptUpdateEmployeesFields = async () => {
             message: 'employee_id: '
         }
     ]);
-    const query3 = await new Query('Read Where', 'Employees', [{ employee_id: answer1.employee_id }], '', '*').buildQuery();
+    const query3 = await new Query('Read Where', 'Employees', [{}], `employee_id=${answer1.employee_id}`, '*').buildQuery();
     console.log('query3: ', query3);
-    console.log('first_name: ', query3[0].first_name);
+    console.log('first_name: ', query3.data[0].first_name);
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
             name: 'first_name',
             message: 'first_name:',
-            default: query3[0].first_name
+            default: query3.data[0].first_name
         },
         {
             type: 'input',
             name: 'last_name',
             message: 'last_name:',
-            default: query3[0].last_name
+            default: query3.data[0].last_name
         },
         {
             type: 'input',
             name: 'role_id',
             message: 'role_id:',
-            default: query3[0].role_id
+            default: query3.data[0].role_id
         },
         {
             type: 'input',
             name: 'manager_id',
             message: 'manager_id:',
-            default: query3[0].manager_id
+            default: query3.data[0].manager_id
         }
     ]);
     return { where: `employee_id=${answer1.employee_id}`, fields: answer2 }
@@ -238,18 +239,29 @@ const promptEmployeesFields = async () => {
 
 const runMainQuery = async (crud, table, fields, where, ...columns) => {
     const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
-    selectCRUD();
+    console.log(query2.message)
+    console.table(query2.data);
+
+    // Run main query, and Display updated table
+    if (crud === 'Read') {
+        await selectCRUD();
+    } else {
+        await displayTable(table);
+        await selectCRUD();
+    }
 }
 
 const displayTable = async (table) => {
     // (crud, table, [fields], where, columns)
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
+    console.log(query1.message)
+    console.table(query1.data);
 }
 
 const displayAll = async () => {
-    // (crud, table, [fields], where, columns)
-    // const query3 = await new Query('Read Where', 'Employees', [{ employee_id: answer1.employee_id }], '', '*').buildQuery();
     const query0 = await new Query('Read Where', 'Employees, Roles, Departments', [{}], 'Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id', '*').buildQuery();
+    console.log(query0.message)
+    console.table(query0.data);
 }
 
 const init = async () => {
