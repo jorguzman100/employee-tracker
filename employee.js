@@ -34,11 +34,38 @@ const selectTable = (crud) => {
     });
 }
 
-const selectOptions = (crud, table) => {
-
+const selectOptions = async (crud, table) => {
+    let fields
     if (crud === 'Create' && table === 'Employees') {
-        
+        fields = await promptEmployeesFields();
+        console.log('fields: ', fields);
     }
+    const query2 = await new Query(crud, table, [fields], '*').buildQuery();
+}
+
+const promptEmployeesFields = async () => {
+    return await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'first_name: '
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'last_name: '
+        },
+        {
+            type: 'input',
+            name: 'role_id',
+            message: 'role_id: '
+        },
+        {
+            type: 'input',
+            name: 'manager_id',
+            message: 'manager_id: '
+        }
+    ]);
 }
 
 const displayAllEmployees = async () => {
@@ -52,15 +79,7 @@ const displayAllEmployees = async () => {
 displayAllEmployees();
 
 
-/* 
-
-// C
-const query2 = await new Query('Create', 'Employees', [{
-    first_name: "2nd test",
-    last_name: "Man",
-    role_id: 1,
-    manager_id: 4
-}], '*').buildQuery();
+/*
 
 // U
 const query3 = await new Query('Update', 'Employees', [{ first_name: 'Maggi' }, { first_name: '2nd test' }]).buildQuery();
