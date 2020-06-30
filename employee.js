@@ -35,13 +35,15 @@ const selectTable = (crud) => {
 }
 
 const selectOptions = (crud, table) => {
-    console.log('In selectOptions()');
-    console.log(`crud: ${crud}, table: ${table}`);
+
+    if (crud === 'Create' && table === 'Employees') {
+        
+    }
 }
 
 const displayAllEmployees = async () => {
     // R - Display all employee DB
-    const query1 = await new Query('Read', 'employee', [{}], '*').buildQuery();
+    const query1 = await new Query('Read', 'Employees', [{}], '*').buildQuery();
 
     // Define the CRUD action
     selectCRUD();
@@ -53,7 +55,7 @@ displayAllEmployees();
 /* 
 
 // C
-const query2 = await new Query('Create', 'employee', [{
+const query2 = await new Query('Create', 'Employees', [{
     first_name: "2nd test",
     last_name: "Man",
     role_id: 1,
@@ -61,11 +63,11 @@ const query2 = await new Query('Create', 'employee', [{
 }], '*').buildQuery();
 
 // U
-const query3 = await new Query('Update', 'employee', [{ first_name: 'Maggi' }, { first_name: '2nd test' }]).buildQuery();
+const query3 = await new Query('Update', 'Employees', [{ first_name: 'Maggi' }, { first_name: '2nd test' }]).buildQuery();
 
 
 // D
-const query4 = await new Query('Delete', 'employee', [{ first_name: 'Maggi' }]).buildQuery();
+const query4 = await new Query('Delete', 'Employees', [{ first_name: 'Maggi' }]).buildQuery();
 
  */
 
