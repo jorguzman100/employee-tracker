@@ -26,12 +26,16 @@ const selectTable = async (crud) => {
             type: 'list',
             name: 'table',
             message: 'What table do you want to work with?',
-            choices: ['Employees', 'Roles', 'Departments', 'Exit'],
+            choices: ['Employees', 'Roles', 'Departments', '<- Go back'],
         }
     ]);
 
+    if (answer.table === '<- Go back') {
+        selectCRUD();
+    } 
+    
     // Display the working table as reference 
-    if (crud === 'Read') {
+    else if (crud === 'Read') {
         await selectOptions(crud, answer.table);
     } else {
         await displayAll(answer.table);
