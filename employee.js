@@ -38,7 +38,7 @@ const selectTable = async (crud) => {
     else if (crud === 'Read') {
         await selectOptions(crud, answer.table);
     } else {
-        await displayAll(answer.table);
+        await displayTable(answer.table);
         await selectOptions(crud, answer.table);
     }
 }
@@ -241,12 +241,19 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
     selectCRUD();
 }
 
-const displayAll = async (table) => {
+const displayTable = async (table) => {
+    // (crud, table, [fields], where, columns)
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
 }
 
+const displayAll = async () => {
+    // (crud, table, [fields], where, columns)
+    // const query3 = await new Query('Read Where', 'Employees', [{ employee_id: answer1.employee_id }], '', '*').buildQuery();
+    const query0 = await new Query('Read Where', 'Employees, Roles, Departments', [{}], 'Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id', '*').buildQuery();
+}
+
 const init = async () => {
-    await displayAll('Employees');
+    await displayAll();
     await selectCRUD();
 }
 
