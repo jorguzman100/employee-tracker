@@ -63,11 +63,36 @@ const selectOptions = async (crud, table) => {
         fields = updateAnswer.fields;
         where = updateAnswer.where;
     } else if (crud === 'Update' && table === 'Departments') {
-        // fields = await promptDepartmentsFields();
+        updateAnswer = await promptUpdateDepartmentsFields();
+        fields = updateAnswer.fields;
+        where = updateAnswer.where;
     }
 
     const query2 = await new Query(crud, table, [ fields ], where, '*').buildQuery();
 }
+
+const promptUpdateDepartmentsFields = async () => {
+    let answer1 = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'department_id: '
+        }
+    ]);
+    const query5 = await new Query('Read Where', 'Departments', [{ department_id: answer1.department_id }], '', '*').buildQuery();
+    console.log('query5: ', query5);
+    console.log('department_name: ', query5[0].department_name);
+    let answer2 = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department_name',
+            message: 'department_name:',
+            default: query5[0].department_name
+        }
+    ]);
+    return { where: `department_id=${answer1.department_id}`, fields: answer2}
+}
+
 
 const promptUpdateRolesFields = async () => {
     let answer1 = await inquirer.prompt([
