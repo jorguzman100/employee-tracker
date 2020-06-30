@@ -63,7 +63,7 @@ const selectOptions = async (crud, table) => {
     }
 
     // U
-    if (crud === 'Update' && table === 'Employees') {
+    else if (crud === 'Update' && table === 'Employees') {
         updateAnswer = await promptUpdateEmployeesFields();
         fields = updateAnswer.fields;
         where = updateAnswer.where;
@@ -77,7 +77,33 @@ const selectOptions = async (crud, table) => {
         where = updateAnswer.where;
     }
 
+    // D
+    else if (crud === 'Delete' && table === 'Employees') {
+        /* updateAnswer = await promptUpdateEmployeesFields();
+        fields = updateAnswer.fields;
+        where = updateAnswer.where; */
+    } else if (crud === 'Delete' && table === 'Roles') {
+        /* updateAnswer = await promptUpdateRolesFields();
+        fields = updateAnswer.fields;
+        where = updateAnswer.where; */
+    } else if (crud === 'Delete' && table === 'Departments') {
+        updateAnswer = await promptDeleteDepartments();
+        where = `department_id=${updateAnswer.department_id}`;
+    }
+
+
+    // Run the main query
     runMainQuery(crud, table, fields, where, '*');
+}
+
+const promptDeleteDepartments = async () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'department_id: '
+        }
+    ]);
 }
 
 const promptUpdateDepartmentsFields = async () => {
@@ -114,8 +140,8 @@ const promptUpdateRolesFields = async () => {
         }
     ]);
     const query4 = await new Query('Read Where', 'Roles', [{}], `role_id=${answer1.role_id}`, '*').buildQuery();
-    console.log('query4: ', query4);
-    console.log('title: ', query4.data[0].title);
+    /* console.log('query4: ', query4);
+    console.log('title: ', query4.data[0].title); */
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
@@ -149,8 +175,8 @@ const promptUpdateEmployeesFields = async () => {
         }
     ]);
     const query3 = await new Query('Read Where', 'Employees', [{}], `employee_id=${answer1.employee_id}`, '*').buildQuery();
-    console.log('query3: ', query3);
-    console.log('first_name: ', query3.data[0].first_name);
+    /* console.log('query3: ', query3);
+    console.log('first_name: ', query3.data[0].first_name); */
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
