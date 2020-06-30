@@ -28,24 +28,3 @@ const displayAllEmployees = () => {
 
 startCMS();
 
-/* 
-updateProduct() {
-       console.log("Updating all Rocky Road quantities...\n");
-       var query = connection.query(
-           "UPDATE products SET ? WHERE ?",
-           [
-               {
-                   quantity: 100
-               },
-               {
-                   flavor: "Rocky Road"
-               }
-           ],
-
-       );
-
-       // logs the actual query being run
-       console.log(query.sql);
-   }
-*/
-
