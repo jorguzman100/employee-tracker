@@ -3,9 +3,6 @@ const inquirer = require("inquirer");
 const Query = require("./lib/query");
 
 
-// CLI 
-// constructor (crud, table, options, ...columns)
-
 const selectCRUD = () => {
     inquirer.prompt([
         {
@@ -15,7 +12,11 @@ const selectCRUD = () => {
             choices: ['Create', 'Read', 'Update', 'Delete', 'Exit'],
         }
     ]).then((answer) => {
-        selectTable(answer.crud);
+        if (answer.crud === 'Exit') {
+            process.exit();
+        } else {
+            selectTable(answer.crud);
+        }
     });
 }
 
@@ -28,6 +29,8 @@ const selectTable = async (crud) => {
             choices: ['Employees', 'Roles', 'Departments', 'Exit'],
         }
     ]);
+
+    // Display the working table as reference 
     if (crud === 'Read') {
         await selectOptions(crud, answer.table);
     } else {
@@ -70,7 +73,8 @@ const selectOptions = async (crud, table) => {
         where = updateAnswer.where;
     }
 
-    const query2 = await new Query(crud, table, [fields], where, '*').buildQuery();
+    // Run main query
+    runMainQuery(crud, table, fields, where, '*')
 }
 
 const promptUpdateDepartmentsFields = async () => {
@@ -226,6 +230,10 @@ const promptEmployeesFields = async () => {
             message: 'manager_id: '
         }
     ]);
+}
+
+const runMainQuery = async (crud, table, fields, where, ...columns) => {
+    const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
 }
 
 const displayAll = async (table) => {
