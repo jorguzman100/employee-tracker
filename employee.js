@@ -35,7 +35,9 @@ const selectTable = (crud) => {
 }
 
 const selectOptions = async (crud, table) => {
-    let fields
+
+    // C
+    let fields;
     if (crud === 'Create' && table === 'Employees') {
         fields = await promptEmployeesFields();
     } else if (crud === 'Create' && table === 'Roles') {
@@ -44,8 +46,13 @@ const selectOptions = async (crud, table) => {
         fields = await promptDepartmentsFields();
     }
 
+    // R
+    else if (crud === 'Read') {
+        fields = {};
+    }
+
     console.log(fields);
-    const query2 = await new Query(crud, table, [fields], '*').buildQuery();
+    const query2 = await new Query(crud, table, [{ fields }], '*').buildQuery();
 }
 
 const promptDepartmentsFields = async () => {
