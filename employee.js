@@ -15,23 +15,25 @@ const selectCRUD = () => {
             choices: ['Create', 'Read', 'Update', 'Delete', 'Exit'],
         }
     ]).then((answer) => {
-        console.log(answer.crud);
         selectTable(answer.crud);
     });
 }
 
-const selectTable = (crud) => {
-    inquirer.prompt([
+const selectTable = async (crud) => {
+    let answer = await inquirer.prompt([
         {
             type: 'list',
             name: 'table',
             message: 'What table do you want to work with?',
             choices: ['Employees', 'Roles', 'Departments', 'Exit'],
         }
-    ]).then((answer) => {
-        console.log(answer.table);
-        selectOptions(crud, answer.table);
-    });
+    ]);
+    if (crud === 'Read') {
+        await selectOptions(crud, answer.table);
+    } else {
+        await displayAll(answer.table);
+        await selectOptions(crud, answer.table);
+    }
 }
 
 const selectOptions = async (crud, table) => {
@@ -68,7 +70,7 @@ const selectOptions = async (crud, table) => {
         where = updateAnswer.where;
     }
 
-    const query2 = await new Query(crud, table, [ fields ], where, '*').buildQuery();
+    const query2 = await new Query(crud, table, [fields], where, '*').buildQuery();
 }
 
 const promptUpdateDepartmentsFields = async () => {
@@ -90,7 +92,7 @@ const promptUpdateDepartmentsFields = async () => {
             default: query5[0].department_name
         }
     ]);
-    return { where: `department_id=${answer1.department_id}`, fields: answer2}
+    return { where: `department_id=${answer1.department_id}`, fields: answer2 }
 }
 
 
@@ -125,7 +127,7 @@ const promptUpdateRolesFields = async () => {
             default: query4[0].department_id
         }
     ]);
-    return { where: `role_id=${answer1.role_id}`, fields: answer2}
+    return { where: `role_id=${answer1.role_id}`, fields: answer2 }
 }
 
 
@@ -166,7 +168,7 @@ const promptUpdateEmployeesFields = async () => {
             default: query3[0].manager_id
         }
     ]);
-    return { where: `employee_id=${answer1.employee_id}`, fields: answer2}
+    return { where: `employee_id=${answer1.employee_id}`, fields: answer2 }
 }
 
 
@@ -226,15 +228,16 @@ const promptEmployeesFields = async () => {
     ]);
 }
 
-const displayAllEmployees = async () => {
-    // R - Display all employee DB
-    const query1 = await new Query('Read', 'Employees', [{}], '', '*').buildQuery();
-
-    // Define the CRUD action
-    selectCRUD();
+const displayAll = async (table) => {
+    const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
 }
 
-displayAllEmployees();
+const init = async () => {
+    await displayAll('Employees');
+    await selectCRUD();
+}
+
+init();
 
 
 /*
