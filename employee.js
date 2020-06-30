@@ -59,13 +59,50 @@ const selectOptions = async (crud, table) => {
         fields = updateAnswer.fields;
         where = updateAnswer.where;
     } else if (crud === 'Update' && table === 'Roles') {
-        // fields = await promptRolesFields();
+        updateAnswer = await promptUpdateRolesFields();
+        fields = updateAnswer.fields;
+        where = updateAnswer.where;
     } else if (crud === 'Update' && table === 'Departments') {
         // fields = await promptDepartmentsFields();
     }
 
     const query2 = await new Query(crud, table, [ fields ], where, '*').buildQuery();
 }
+
+const promptUpdateRolesFields = async () => {
+    let answer1 = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'role_id',
+            message: 'role_id: '
+        }
+    ]);
+    const query4 = await new Query('Read Where', 'Roles', [{ role_id: answer1.role_id }], '', '*').buildQuery();
+    console.log('query4: ', query4);
+    console.log('title: ', query4[0].title);
+    let answer2 = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'title:',
+            default: query4[0].title
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'salary:',
+            default: query4[0].salary
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'department_id:',
+            default: query4[0].department_id
+        }
+    ]);
+    return { where: `role_id=${answer1.role_id}`, fields: answer2}
+}
+
 
 const promptUpdateEmployeesFields = async () => {
     let answer1 = await inquirer.prompt([
@@ -106,9 +143,6 @@ const promptUpdateEmployeesFields = async () => {
     ]);
     return { where: `employee_id=${answer1.employee_id}`, fields: answer2}
 }
-
-// U
-/* const query3 = await new Query('Update', 'Employees', [{ first_name: 'Maggi' }, { first_name: '2nd test' }]).buildQuery(); */
 
 
 
