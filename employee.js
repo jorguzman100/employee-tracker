@@ -78,7 +78,7 @@ const selectOptions = async (crud, table) => {
     }
 
     // Run main query
-    runMainQuery(crud, table, fields, where, '*')
+    runMainQuery(crud, table, fields, where, '*');
 }
 
 const promptUpdateDepartmentsFields = async () => {
@@ -238,6 +238,7 @@ const promptEmployeesFields = async () => {
 
 const runMainQuery = async (crud, table, fields, where, ...columns) => {
     const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
+    selectCRUD();
 }
 
 const displayAll = async (table) => {
