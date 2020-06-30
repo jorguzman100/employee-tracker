@@ -79,9 +79,8 @@ const selectOptions = async (crud, table) => {
 
     // D
     else if (crud === 'Delete' && table === 'Employees') {
-        /* updateAnswer = await promptUpdateEmployeesFields();
-        fields = updateAnswer.fields;
-        where = updateAnswer.where; */
+        updateAnswer = await promptDeleteEmployees();
+        where = `employee_id=${updateAnswer.employee_id}`;
     } else if (crud === 'Delete' && table === 'Roles') {
         updateAnswer = await promptDeleteRoles();
         where = `role_id=${updateAnswer.role_id}`;
@@ -111,6 +110,16 @@ const promptDeleteRoles = async () => {
             type: 'input',
             name: 'role_id',
             message: 'role_id: '
+        }
+    ]);
+}
+
+const promptDeleteEmployees = async () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'employee_id',
+            message: 'employee_id: '
         }
     ]);
 }
