@@ -91,8 +91,8 @@ const promptUpdateDepartmentsFields = async () => {
 
     // (crud, table, options, where, ...columns)
     const query5 = await new Query('Read Where', 'Departments', [{}], `department_id=${answer1.department_id}`, '*').buildQuery();
-    console.log('query5: ', query5);
-    console.log('department_name: ', query5.data[0].department_name);
+    /* console.log('query5: ', query5);
+    console.log('department_name: ', query5.data[0].department_name); */
     let answer2 = await inquirer.prompt([
         {
             type: 'input',
@@ -240,15 +240,22 @@ const promptEmployeesFields = async () => {
 const runMainQuery = async (crud, table, fields, where, ...columns) => {
     const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
     console.log(query2.message)
-    console.table(query2.data);
 
     // Run main query, and Display updated table
     if (crud === 'Read') {
-        await selectCRUD();
+        console.table(query2.data);
     } else {
         await displayTable(table);
-        await selectCRUD();
     }
+    await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'continue',
+            message: 'Press Enter to continue'
+        }
+    ]);
+    await displayAll();
+    await selectCRUD();
 }
 
 const displayTable = async (table) => {
