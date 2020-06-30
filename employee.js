@@ -38,9 +38,44 @@ const selectOptions = async (crud, table) => {
     let fields
     if (crud === 'Create' && table === 'Employees') {
         fields = await promptEmployeesFields();
-        console.log('fields: ', fields);
+    } else if (crud === 'Create' && table === 'Roles') {
+        fields = await promptRolesFields();
+    } else if (crud === 'Create' && table === 'Departments') {
+        fields = await promptDepartmentsFields();
     }
+
+    console.log(fields);
     const query2 = await new Query(crud, table, [fields], '*').buildQuery();
+}
+
+const promptDepartmentsFields = async () => {
+    return await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department_name',
+            message: 'department_name: '
+        }
+    ]);
+}
+
+const promptRolesFields = async () => {
+    return await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'title: '
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'salary: '
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'department_id: '
+        },
+    ]);
 }
 
 const promptEmployeesFields = async () => {
