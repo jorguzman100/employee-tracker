@@ -2,6 +2,12 @@
 const inquirer = require("inquirer");
 const Query = require("./lib/query");
 
+// ASCII-LOGO
+const logo = require('asciiart-logo');
+const config = require('./package.json');
+console.log(logo(config).render());
+
+
 
 const selectCRUD = () => {
     inquirer.prompt([
@@ -36,7 +42,8 @@ const selectTable = async (crud) => {
 
     // Display the working table as reference 
     else if (crud === 'Read') {
-        await selectOptions(crud, answer.table);
+        // await selectOptions(crud, answer.table); FOR TEST
+        selectOptions(crud, answer.table);
     } else {
         await displayTable(answer.table);
         await selectOptions(crud, answer.table);
@@ -44,7 +51,7 @@ const selectTable = async (crud) => {
 }
 
 const selectOptions = async (crud, table) => {
-
+    // CHECK AWAITS
     // C
     let fields;
     let where = '';
@@ -104,6 +111,7 @@ const promptDeleteDepartments = async () => {
     ]);
 }
 
+// CHECK ASYNC
 const promptDeleteRoles = async () => {
     return inquirer.prompt([
         {
@@ -283,7 +291,7 @@ const promptEmployeesFields = async () => {
 
 const runMainQuery = async (crud, table, fields, where, ...columns) => {
     const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
-    console.log(query2.message)
+    console.log(`\n✅ ${query2.message}`)
 
     // Run main query, and Display updated table
     if (crud === 'Read') {
@@ -305,13 +313,13 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
 const displayTable = async (table) => {
     // (crud, table, [fields], where, columns)
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
-    console.log(query1.message)
+    console.log(`\n${query1.message}`)
     console.table(query1.data);
 }
 
 const displayAll = async () => {
     const query0 = await new Query('Read Where', 'Employees, Roles, Departments', [{}], 'Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id', '*').buildQuery();
-    console.log(query0.message)
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
     console.table(query0.data);
 }
 
@@ -330,74 +338,7 @@ const init = async () => {
 
 
 const displayAscii = () => {
-    console.log(`
-████████████████████████████████████████████████████████████████████████████████████████████
-██                                                                                        ██            
-██          ███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████          ██          
-██          ██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██               ██          
-██          █████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████            ██          
-██          ██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██               ██          
-██          ███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████          ██          
-██                                                                                        ██          
-██                                                                                        ██          
-██          ████████ ██████   █████   ██████ ██   ██ ███████ ██████                       ██          
-██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██                      ██          
-██             ██    ██████  ███████ ██      █████   █████   ██████                       ██          
-██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██                      ██          
-██             ██    ██   ██ ██   ██  ██████ ██   ██ ███████ ██   ██                      ██       
-██                                                                                        ██  
-████████████████████████████████████████████████████████████████████████████████████████████
-`);
+
 }
 
 init();
-
-
-/* 
-_______   _____ ______   ________  ___       ________      ___    ___ _______   _______          
-|\  ___ \ |\   _ \  _   \|\   __  \|\  \     |\   __  \    |\  \  /  /|\  ___ \ |\  ___ \         
-\ \   __/|\ \  \\\__\ \  \ \  \|\  \ \  \    \ \  \|\  \   \ \  \/  / | \   __/|\ \   __/|        
- \ \  \_|/_\ \  \\|__| \  \ \   ____\ \  \    \ \  \\\  \   \ \    / / \ \  \_|/_\ \  \_|/__      
-  \ \  \_|\ \ \  \    \ \  \ \  \___|\ \  \____\ \  \\\  \   \/  /  /   \ \  \_|\ \ \  \_|\ \     
-   \ \_______\ \__\    \ \__\ \__\    \ \_______\ \_______\__/  / /      \ \_______\ \_______\    
-    \|_______|\|__|     \|__|\|__|     \|_______|\|_______|\___/ /        \|_______|\|_______|    
-                                                          \|___|/                                 
-                                                                                                  
-                                                                                                  
- _________  ________  ________  ________  ___  __    _______   ________                           
-|\___   ___\\   __  \|\   __  \|\   ____\|\  \|\  \ |\  ___ \ |\   __  \                          
-\|___ \  \_\ \  \|\  \ \  \|\  \ \  \___|\ \  \/  /|\ \   __/|\ \  \|\  \                         
-     \ \  \ \ \   _  _\ \   __  \ \  \    \ \   ___  \ \  \_|/_\ \   _  _\                        
-      \ \  \ \ \  \\  \\ \  \ \  \ \  \____\ \  \\ \  \ \  \_|\ \ \  \\  \|                       
-       \ \__\ \ \__\\ _\\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\\ _\                       
-        \|__|  \|__|\|__|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|  
-*/
-
-/* 
-███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████     
-██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██          
-█████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████       
-██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██          
-███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████     
-                                                                         
-                                                                         
-████████ ██████   █████   ██████ ██   ██ ███████ ██████                  
-   ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██                 
-   ██    ██████  ███████ ██      █████   █████   ██████                  
-   ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██                 
-   ██    ██   ██ ██   ██  ██████ ██   ██ ███████ ██   ██ 
-*/
-
-
-/* 
-  _____                 _                        
- | ____|_ __ ___  _ __ | | ___  _   _  ___  ___  
- |  _| | '_ ` _ \| '_ \| |/ _ \| | | |/ _ \/ _ \ 
- | |___| | | | | | |_) | | (_) | |_| |  __/  __/ 
- |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___| 
- |_   _| __ __ _ |_|_| | _____ _|___/            
-   | || '__/ _` |/ __| |/ / _ \ '__|             
-   | || | | (_| | (__|   <  __/ |                
-   |_||_|  \__,_|\___|_|\_\___|_|                
-                                    
-*/

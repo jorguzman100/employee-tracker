@@ -1,7 +1,7 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "A solution for managing a company's employees using node, inquirer, and MySQL",
+  "description": "A solution for managing company's employees using node, inquirer, and MySQL",
   "main": "employee.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jorguzman100/12_Employee_Tracker#readme",
   "dependencies": {
+    "asciiart-logo": "^0.2.6",
     "inquirer": "^7.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0"
