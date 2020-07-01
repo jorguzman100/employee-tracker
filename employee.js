@@ -87,7 +87,7 @@ const selectOptions = async (crud, table) => {
     // D
     else if (crud === 'Delete' && table === 'Employees') {
         updateAnswer = await promptDeleteEmployees();
-        where = `employee_id=${updateAnswer.employee_id}`;
+        where = `id=${updateAnswer.id}`;
     } else if (crud === 'Delete' && table === 'Roles') {
         updateAnswer = await promptDeleteRoles();
         where = `role_id=${updateAnswer.role_id}`;
@@ -126,8 +126,8 @@ const promptDeleteEmployees = async () => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'employee_id',
-            message: 'employee_id: '
+            name: 'id',
+            message: 'id: '
         }
     ]);
 }
@@ -196,11 +196,11 @@ const promptUpdateEmployeesFields = async () => {
     let answer1 = await inquirer.prompt([
         {
             type: 'input',
-            name: 'employee_id',
-            message: 'employee_id: '
+            name: 'id',
+            message: 'id: '
         }
     ]);
-    const query3 = await new Query('Read Where', 'Employees', [{}], `employee_id=${answer1.employee_id}`, '*').buildQuery();
+    const query3 = await new Query('Read Where', 'Employees', [{}], `id=${answer1.id}`, '*').buildQuery();
     /* console.log('query3: ', query3);
     console.log('first_name: ', query3.data[0].first_name); */
     let answer2 = await inquirer.prompt([
@@ -229,7 +229,7 @@ const promptUpdateEmployeesFields = async () => {
             default: query3.data[0].manager_id
         }
     ]);
-    return { where: `employee_id=${answer1.employee_id}`, fields: answer2 }
+    return { where: `id=${answer1.id}`, fields: answer2 }
 }
 
 

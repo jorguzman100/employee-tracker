@@ -27,9 +27,17 @@ SELECT *
 FROM Employees
 LEFT JOIN Roles ON Employees.role_id = Roles.role_id;
 
+SELECT CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'Name'
+FROM Employees
+LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
+
 SELECT *
 FROM Roles
 LEFT JOIN Departments ON Roles.department_id = Departments.department_id;
+
+SELECT *
+FROM Employees, Roles, Departments
+WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
 
 SELECT *
 FROM Employees, Roles, Departments
