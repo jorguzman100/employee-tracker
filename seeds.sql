@@ -19,6 +19,22 @@ VALUES ('Juan', 'García', 1, 4), ('Karla', 'Anda', 2, 4), ('Alma', 'Rivera', 3,
 ('Thalía', 'Mendez', 17, 20), ('Emmanueal', 'Carbajal', 18, 20), ('Francisco', 'Mijares', 19, 20), ('Luis', 'Miguel', 20, NULL),
 ('Super', 'Man', 21, 24), ('Bat', 'Man', 22, 24), ('Iron', 'Man', 23, 24), ('Super', 'Woman', 24, NULL);
 
+SELECT * FROM Departments;
+SELECT * FROM Roles;
+SELECT * FROM Employees;
+
+-- SELECT *
+-- FROM Employees
+-- LEFT JOIN Roles ON Employees.role_id = Roles.role_id;
+
+-- SELECT CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'Name'
+-- FROM Employees
+-- LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
+
+-- SELECT *
+-- FROM Roles
+-- LEFT JOIN Departments ON Roles.department_id = Departments.department_id;
+
 SELECT *
 FROM Employees, Roles, Departments
 WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
@@ -53,5 +69,30 @@ LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
 
 SELECT * FROM Employees
 WHERE manager_id = 8;
+
+-- Running ok
+SELECT Departments.department_id AS 'id', department_name AS 'department', 
+CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', salary
+FROM Departments
+LEFT JOIN Roles ON Departments.department_id = Roles.department_id
+LEFT JOIN Employees ON Employees.role_id = Roles.role_id;
+
+-- Not Working
+SELECT Departments.department_id AS 'id', department_name AS 'department', 
+CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', SUM(salary)
+FROM Departments
+LEFT JOIN Roles ON Departments.department_id = Roles.department_id
+LEFT JOIN Employees ON Employees.role_id = Roles.role_id
+GROUP BY department_name
+
+-- SELECT Departments.department_id AS 'id', department_name AS 'department', 
+-- CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', 
+-- SUM(salary) as 'Total Budget'
+-- FROM Departments
+-- LEFT JOIN Roles ON Departments.department_id = Roles.department_id
+-- LEFT JOIN Employees ON Employees.role_id = Roles.role_id
+-- GROUP BY Departments.department_name
+
+
 
 

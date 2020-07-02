@@ -27,7 +27,7 @@ const selectCRUD = () => {
 const selectTable = async (crud) => {
     let choices = [];
     if (crud === 'Read') {
-        choices = ['Employees', 'Roles', 'Departments', 'Employees by Manager', '<- Go back'];
+        choices = ['Employees', 'Employees by Manager', 'Roles', 'Departments', 'Departments with Total Budget', '<- Go back'];
     } else {
         choices = ['Employees', 'Roles', 'Departments', '<- Go back'];
     }
@@ -61,6 +61,7 @@ const selectOptions = async (crud, table) => {
     let fields;
     let where = '';
     let updateAnswer;
+    let columns = '*';
     if (crud === 'Create' && table === 'Employees') {
         fields = await promptEmployeesFields();
     } else if (crud === 'Create' && table === 'Roles') {
@@ -70,15 +71,22 @@ const selectOptions = async (crud, table) => {
     }
 
     // R
-    else if (crud === 'Read' && table !== 'Employees by Manager') {
+    else if (crud === 'Read' && table !== 'Employees by Manager' && table !== 'Departments with Total Budget') {
         fields = {};
     } else if (crud === 'Read' && table === 'Employees by Manager') {
-        // prompt manager
         updateAnswer = await promptManager();
         where = `manager_id=${updateAnswer.manager_id}`;
         crud = 'Read Where';
         table = 'Employees';
-        fields = 'Employees by Manager'
+        fields = 'Employees by Manager';
+    } else if (crud === 'Read' && table === 'Departments with Total Budget') {
+        console.log(`crud === 'Read' && table === 'Departments with Total Budget'`);
+        crud = 'Read Total Budget';
+        table = 'Departments';
+        columns = `
+        Departments.department_id AS 'id', department_name AS 'department', 
+        CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', salary
+        `;
     }
 
     // U
@@ -110,7 +118,7 @@ const selectOptions = async (crud, table) => {
 
 
     // Run the main query
-    runMainQuery(crud, table, fields, where, '*');
+    runMainQuery(crud, table, fields, where, columns);
 }
 
 const promptManager = async () => {
@@ -313,10 +321,10 @@ const promptEmployeesFields = async () => {
 
 const runMainQuery = async (crud, table, fields, where, ...columns) => {
     const query2 = await new Query(crud, table, [fields], where, columns).buildQuery();
-    console.log(`\n✅ ${query2.message}`)
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n✅ ${query2.message}`)
 
     // Run main query, and Display updated table
-    if (crud === 'Read' || crud === 'Read Where' && query2.fields[0] === 'Employees by Manager') {
+    if (crud === 'Read' || crud === 'Read Where' && query2.fields[0] === 'Employees by Manager' || crud === 'Read Total Budget') {
         console.table(query2.data);
     } else {
         await displayTable(table);
@@ -334,7 +342,7 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
 
 const displayTable = async (table) => {
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
-    console.log(`\n${query1.message}`)
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query1.message}`)
     console.table(query1.data);
 }
 
@@ -345,30 +353,10 @@ const displayAll = async () => {
         salary as 'salary', Employees.manager_id, CONCAT(Managers.first_name, ' ', 
         Managers.last_name) AS 'manager'
     `).buildQuery();
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
     // console.log(`${query0.message}`)
     console.table(query0.data);
 }
-
-/* 
-
-this.query = `SELECT ${this.columns} FROM ${this.table}`;
-
-SELECT Employees.id, Employees.first_name, Employees.last_name, Employees.role_id, title, Roles.department_id, department_name, salary, Employees.manager_id, Managers.first_name, Managers.last_name
-FROM Employees
-LEFT JOIN Roles ON Employees.role_id = Roles.role_id
-LEFT JOIN Departments ON Roles.department_id = Departments.department_id
-LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
-*/
-
-
-/* 
-const displayAll = async () => {
-    const query0 = await new Query('Read Where', 'Employees, Roles, Departments', [{}], 'Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id', '*').buildQuery();
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
-    console.table(query0.data);
-}
-*/
 
 const init = async () => {
     displayAscii();
