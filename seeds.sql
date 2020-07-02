@@ -19,26 +19,39 @@ VALUES ('Juan', 'García', 1, 4), ('Karla', 'Anda', 2, 4), ('Alma', 'Rivera', 3,
 ('Thalía', 'Mendez', 17, 20), ('Emmanueal', 'Carbajal', 18, 20), ('Francisco', 'Mijares', 19, 20), ('Luis', 'Miguel', 20, NULL),
 ('Super', 'Man', 21, 24), ('Bat', 'Man', 22, 24), ('Iron', 'Man', 23, 24), ('Super', 'Woman', 24, NULL);
 
-SELECT * FROM Departments;
-SELECT * FROM Roles;
-SELECT * FROM Employees;
-
 SELECT *
-FROM Employees
-LEFT JOIN Roles ON Employees.role_id = Roles.role_id;
+FROM Employees, Roles, Departments
+WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
 
-SELECT CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'Name'
+-- id, name, title, department, salary, manager
+-- SELECT id, first_name, last_name, role_id, title as 'role', department_id, salary, manager_id
+-- FROM Employees, Roles, Departments
+-- WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
+
+-- SELECT id, first_name, last_name, role_id, title, department_id, department_name, salary, manager_id
+-- FROM Employees, Roles, Departments, Employees AS Managers
+-- WHERE Employees.role_id = Roles.role_id AND Roles.departmnet_id = Departments.department_id AND Employees.manager_id = Managers.id;
+
+-- Workbench
+-- SELECT Employees.id, Employees.first_name, Employees.last_name, Employees.role_id, title, Roles.department_id, department_name, salary, 
+-- Employees.manager_id, Managers.first_name, Managers.last_name
+-- FROM Employees
+-- LEFT JOIN Roles ON Employees.role_id = Roles.role_id
+-- LEFT JOIN Departments ON Roles.department_id = Departments.department_id
+-- LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
+
+-- Node
+SELECT Employees.id, CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', 
+Employees.role_id, title AS 'role', Roles.department_id, department_name AS 'department', 
+salary as 'salary', Employees.manager_id, CONCAT(Managers.first_name, ' ', 
+Managers.last_name) AS 'manager'
 FROM Employees
+LEFT JOIN Roles ON Employees.role_id = Roles.role_id
+LEFT JOIN Departments ON Roles.department_id = Departments.department_id
 LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
 
-SELECT *
-FROM Roles
-LEFT JOIN Departments ON Roles.department_id = Departments.department_id;
 
-SELECT *
-FROM Employees, Roles, Departments
-WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
+SELECT * FROM Employees
+WHERE manager_id = 8;
 
-SELECT *
-FROM Employees, Roles, Departments
-WHERE Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id;
+

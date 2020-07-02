@@ -5,8 +5,6 @@ const Query = require("./lib/query");
 // ASCII-LOGO
 const logo = require('asciiart-logo');
 const config = require('./package.json');
-console.log(logo(config).render());
-
 
 
 const selectCRUD = () => {
@@ -27,12 +25,19 @@ const selectCRUD = () => {
 }
 
 const selectTable = async (crud) => {
+    let choices = [];
+    if (crud === 'Read') {
+        choices = ['Employees', 'Roles', 'Departments', 'Employees by Manager', '<- Go back'];
+    } else {
+        choices = ['Employees', 'Roles', 'Departments', '<- Go back'];
+    }
+
     let answer = await inquirer.prompt([
         {
             type: 'list',
             name: 'table',
             message: 'What table do you want to work with?',
-            choices: ['Employees', 'Roles', 'Departments', '<- Go back'],
+            choices: choices
         }
     ]);
 
@@ -65,8 +70,15 @@ const selectOptions = async (crud, table) => {
     }
 
     // R
-    else if (crud === 'Read') {
+    else if (crud === 'Read' && table !== 'Employees by Manager') {
         fields = {};
+    } else if (crud === 'Read' && table === 'Employees by Manager') {
+        // prompt manager
+        updateAnswer = await promptManager();
+        where = `manager_id=${updateAnswer.manager_id}`;
+        crud = 'Read Where';
+        table = 'Employees';
+        fields = 'Employees by Manager'
     }
 
     // U
@@ -82,7 +94,7 @@ const selectOptions = async (crud, table) => {
         updateAnswer = await promptUpdateDepartmentsFields();
         fields = updateAnswer.fields;
         where = updateAnswer.where;
-    }
+    } 
 
     // D
     else if (crud === 'Delete' && table === 'Employees') {
@@ -99,6 +111,16 @@ const selectOptions = async (crud, table) => {
 
     // Run the main query
     runMainQuery(crud, table, fields, where, '*');
+}
+
+const promptManager = async () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'manager_id',
+            message: 'manager_id: '
+        }
+    ]);
 }
 
 const promptDeleteDepartments = async () => {
@@ -294,7 +316,7 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
     console.log(`\n✅ ${query2.message}`)
 
     // Run main query, and Display updated table
-    if (crud === 'Read') {
+    if (crud === 'Read' || crud === 'Read Where' && query2.fields[0] === 'Employees by Manager') {
         console.table(query2.data);
     } else {
         await displayTable(table);
@@ -311,17 +333,43 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
 }
 
 const displayTable = async (table) => {
-    // (crud, table, [fields], where, columns)
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
     console.log(`\n${query1.message}`)
     console.table(query1.data);
 }
 
 const displayAll = async () => {
+    const query0 = await new Query('Read All', 'Employees', [{}], '', `
+        Employees.id, CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', 
+        Employees.role_id, title AS 'role', Roles.department_id, department_name AS 'department', 
+        salary as 'salary', Employees.manager_id, CONCAT(Managers.first_name, ' ', 
+        Managers.last_name) AS 'manager'
+    `).buildQuery();
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
+    // console.log(`${query0.message}`)
+    console.table(query0.data);
+}
+
+/* 
+(crud, table, options, where, ...columns)
+
+this.query = `SELECT ${this.columns} FROM ${this.table}`;
+
+SELECT Employees.id, Employees.first_name, Employees.last_name, Employees.role_id, title, Roles.department_id, department_name, salary, Employees.manager_id, Managers.first_name, Managers.last_name
+FROM Employees
+LEFT JOIN Roles ON Employees.role_id = Roles.role_id
+LEFT JOIN Departments ON Roles.department_id = Departments.department_id
+LEFT JOIN Employees AS Managers ON Employees.manager_id = Managers.id;
+*/
+
+
+/* 
+const displayAll = async () => {
     const query0 = await new Query('Read Where', 'Employees, Roles, Departments', [{}], 'Employees.role_id = Roles.role_id AND Roles.department_id = Departments.department_id', '*').buildQuery();
     console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query0.message}`)
     console.table(query0.data);
 }
+*/
 
 const init = async () => {
     displayAscii();
@@ -338,7 +386,7 @@ const init = async () => {
 
 
 const displayAscii = () => {
-
+    console.log(logo(config).render());
 }
 
 init();
