@@ -351,7 +351,6 @@ const displayAll = async () => {
 }
 
 /* 
-(crud, table, options, where, ...columns)
 
 this.query = `SELECT ${this.columns} FROM ${this.table}`;
 
