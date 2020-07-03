@@ -1,137 +1,152 @@
-# Unit 12 MySQL Homework: Employee Tracker
+# Employee Tracker
 
-Developers are often tasked with creating interfaces that make it easy for non-developers to view and interact with information stored in databases. Often these interfaces are known as **C**ontent **M**anagement **S**ystems. In this homework assignment, your challenge is to architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
+A CLI solution for managing company's employees using node, inquirer, and MySQL.
 
-## Instructions
+## Badges
 
-Design the following database schema containing three tables:
+Code quality and validation
 
-![Database Schema](Assets/schema.png)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/jorguzman100/12_Employee_Tracker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jorguzman100/12_Employee_Tracker/context:javascript)
+![shields.io](https://img.shields.io/github/languages/top/jorguzman100/12_Employee_Tracker)
+![shields.io](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fjorguzman100.github.io%2F12_Employee_Tracker%2F)
 
-* **department**:
+Repository Status
 
-  * **id** - INT PRIMARY KEY
-  * **name** - VARCHAR(30) to hold department name
+![shields.io](https://img.shields.io/badge/Repo%20Status-Finished-brightgreen)
+![shields.io](https://img.shields.io/bitbucket/issues/jorguzman100/12_Employee_Tracker)
 
-* **role**:
+License
 
-  * **id** - INT PRIMARY KEY
-  * **title** -  VARCHAR(30) to hold role title
-  * **salary** -  DECIMAL to hold role salary
-  * **department_id** -  INT to hold reference to department role belongs to
+![GitHub](https://img.shields.io/github/license/jorguzman100/12_Employee_Tracker)
 
-* **employee**:
+## Table of contents
 
-  * **id** - INT PRIMARY KEY
-  * **first_name** - VARCHAR(30) to hold employee first name
-  * **last_name** - VARCHAR(30) to hold employee last name
-  * **role_id** - INT to hold reference to role employee has
-  * **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager
-  
-Build a command-line application that at a minimum allows the user to:
+- [Employee Tracker](#employee-tracker)
+  - [Badges](#badges)
+  - [Table of contents](#table-of-contents)
+  - [The challenge](#the-challenge)
+  - [The development process](#the-development-process)
+  - [The Output](#the-output)
+  - [Installation and Usage](#installation-and-usage)
+  - [Credits, tools and other references](#credits-tools-and-other-references)
+  - [Contributing](#contributing)
+  - [Questions](#questions)
 
-  * Add departments, roles, employees
+## The challenge
 
-  * View departments, roles, employees
+To architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
 
-  * Update employee roles
+Main elements:
 
-Bonus points if you're able to:
+- [x] CLI applicacion
+- [x] MySQL database
+- [x] CRUD model operation
+  - Create
+  - Read
+  - Update
+  - Delete
 
-  * Update employee managers
+## The development process
 
-  * View employees by manager
+In order to accomplish the challenge, the following steps were done:
 
-  * Delete departments, roles, and employees
+1. Understand the purpose, concept of the application.
+2. Understand the database schemas.
+3. Define functionality.
+4. Research assets.
+5. Include dependencies.
+6. Develop the functionality.
+7. Final review and proper documentation.
 
-  * View the total utilized budget of a department -- ie the combined salaries of all employees in that department
+## The Output
 
-We can frame this challenge as follows:
+With the described process we were able to create a useful, efficient and responsive application that ...
 
-```
-As a business owner
-I want to be able to view and manage the departments, roles, and employees in my company
-So that I can organize and plan my business
-```
+**User stories**
 
-How do you deliver this? Here are some guidelines:
+1. As a <role> I can <capability>, so that <receive benefit>
+2. As a <role> I can <capability>, so that <receive benefit>
+3. As a <role> I can <capability>, so that <receive benefit>
 
-* Use the [MySQL](https://www.npmjs.com/package/mysql) NPM package to connect to your MySQL database and perform queries.
+**The application**
 
-* Use [InquirerJs](https://www.npmjs.com/package/inquirer/v/0.2.3) NPM package to interact with the user via the command-line.
+![](picture url)
 
-* Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console. There is a built-in version of `console.table`, but the NPM package formats the data a little better for our purposes.
+## Installation and Usage
 
-* You may wish to have a separate file containing functions for performing specific SQL queries you'll need to use. Could a constructor function or a class be helpful for organizing these?
+The project was uploaded to [GitHub](https://github.com/) at the following repository:
+[https://github.com/jorguzman100/12_Employee_Tracker](https://github.com/jorguzman100/12_Employee_Tracker)
 
-* You will need to perform a variety of SQL JOINS to complete this assignment, and it's recommended you review the week's activities if you need a refresher on this.
+You can access the deployed application with the GitHup Pages link:
+[https://jorguzman100.github.io/12_Employee_Tracker/](https://jorguzman100.github.io/12_Employee_Tracker/)
 
-![Employee Tracker](Assets/employee-tracker.gif)
+To install the project follow these steps:
 
-### Hints
+1. Step
+2. Step
+3. Step
 
-* You may wish to include a `seed.sql` file to pre-populate your database. This will make development of individual features much easier.
+## Credits, tools and other references
 
-* Focus on getting the basic functionality completed before working on more advanced features.
+**Colaborators**
 
-* Review the week's activities for a refresher on MySQL.
+Our appreciation for those who have contributed to the project:
 
-* Check out [SQL Bolt](https://sqlbolt.com/) for some extra MySQL help.
+[Name](http:"#")
 
-## Minimum Requirements
+[Name](http:"#")
+<creator><GitHub Profile>
 
-* Functional application.
+**Third Party Assets**
 
-* GitHub repository with a unique name and a README describing the project.
+[Creator](http:"#")
+<creator><Primary web presence>
 
-* The command-line application should allow users to:
+[Balsamiq](https://balsamiq.com/)
 
-  * Add departments, roles, employees
+[Canvas](https://www.canva.com/)
 
-  * View departments, roles, employees
+[Placeholder](https://placeholder.com/)
 
-  * Update employee roles
+[Random images](http://lorempixel.com/)
 
-## Bonus
+[Lorem Ipsum](www.lipsum.com)
 
-* The command-line application should allow users to:
+[HTML Color Picker](https://www.w3schools.com/colors/colors_picker.asp)
 
-  * Update employee managers
+[Moment.js](https://momentjs.com/)
 
-  * View employees by manager
+[CSS Materialize](https://materializecss.com/)
 
-  * Delete departments, roles, and employees
+[Bootstrap](https://getbootstrap.com/)
 
-  * View the total utilized budget of a department -- ie the combined salaries of all employees in that department
+[Test CORS](https://www.test-cors.org/)
 
-## Commit Early and Often
+[Font Awesome](https://fontawesome.com/)
 
-One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for two reasons:
+[Google’s Material Icons](https://google.github.io/material-design-icons/)
 
-* Your commit history is a signal to employers that you are actively working on projects and learning new skills.
+[Shields.io](https://shields.io/)
 
-* Your commit history allows you to revert your codebase in the event that you need to return to a previous state.
+[LGTM](https://lgtm.com/)
 
-Follow these guidelines for committing:
+[Website Grader](https://website.grader.com/)
 
-* Make single-purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits.
+[Markup Validation Service](https://validator.w3.org/)
 
-* Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history.
+**Tutorials**
 
-* Don't commit half-done work, for the sake of your collaborators (and your future self!).
+[Name](http:"#")
+<name><link>
 
-* Test your application before you commit to ensure functionality at every step in the development process.
+## Contributing
 
-We would like you to have well over 200 commits by graduation, so commit early and often!
+- Pull requests are welcome.
+- For major changes, please open an issue first to discuss what you would like to change.
+- Please make sure to update tests as appropriate.
 
+## Questions
 
-## Submission on BCS
+If you have questions or you want to share comments, we will be glad to hear from you. Please contact us at jorguzman100@gmail.com.
 
-You are required to submit the following:
-
-* The URL of the GitHub repository
-
-* A video demonstrating the entirety of the app's functionality 
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+![GitHubProfilePicture](https://avatars3.githubusercontent.com/u/61070430?s=400&u=2b857b54876d926e32fa510d9363e301820b0c03&v=4)

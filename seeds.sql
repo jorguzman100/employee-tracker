@@ -77,13 +77,12 @@ FROM Departments
 LEFT JOIN Roles ON Departments.department_id = Roles.department_id
 LEFT JOIN Employees ON Employees.role_id = Roles.role_id;
 
--- Not Working
-SELECT Departments.department_id AS 'id', department_name AS 'department', 
-CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', SUM(salary)
+-- Running ok
+SELECT Departments.department_id AS 'id', department_name AS 'department', SUM(salary)
 FROM Departments
 LEFT JOIN Roles ON Departments.department_id = Roles.department_id
 LEFT JOIN Employees ON Employees.role_id = Roles.role_id
-GROUP BY department_name
+GROUP BY Departments.department_id, department_name
 
 -- SELECT Departments.department_id AS 'id', department_name AS 'department', 
 -- CONCAT(Employees.first_name, ' ', Employees.last_name) AS 'employee', 
