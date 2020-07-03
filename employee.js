@@ -327,7 +327,7 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
     if (crud === 'Read' || crud === 'Read Where' && query2.fields[0] === 'Employees by Manager' || crud === 'Read Total Budget') {
         console.table(query2.data);
     } else {
-        await displayTable(table);
+        await displayTable(table, query2.message);
     }
     await inquirer.prompt([
         {
@@ -340,9 +340,14 @@ const runMainQuery = async (crud, table, fields, where, ...columns) => {
     await selectCRUD();
 }
 
-const displayTable = async (table) => {
+const displayTable = async (table, query2Message) => {
     const query1 = await new Query('Read', table, [{}], '', '*').buildQuery();
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query1.message}`)
+    if (query2Message === true) {
+        console.log(`${query1.message}`)
+    } else {
+        console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n${query1.message}`)
+    }
+    
     console.table(query1.data);
 }
 
