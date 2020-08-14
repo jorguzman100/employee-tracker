@@ -70,7 +70,10 @@ With the described process we were able to create a useful, efficient and respon
 
 **The application**
 
-![](picture url)
+![Screenshot1](./Assets/screenshot1.png)
+![Screenshot1](./Assets/screenshot2.png)
+![Screenshot1](./Assets/screenshot3.png)
+![Screenshot1](./Assets/screenshot4.png)
 
 ## Installation and Usage
 
