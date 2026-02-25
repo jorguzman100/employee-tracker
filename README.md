@@ -2,7 +2,7 @@
 
 ### A clean terminal-based employee manager for quickly handling departments, roles, and people in a MySQL database.
 
-Employee Tracker is a Node.js CLI app built for the classic “company org data” workflow, but with a smoother setup and a more practical project structure. It lets you manage employees, roles, and departments from the terminal without touching SQL every time.
+Employee Tracker is a Node.js CLI app built for the classic "company org data" workflow, but with a smoother setup and a more practical project structure. It lets you manage employees, roles, and departments from the terminal without touching SQL every time.
 
 ---
 
