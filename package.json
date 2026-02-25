@@ -1,7 +1,7 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "A solution for managing company's employees using node, inquirer, and MySQL",
+  "description": "CLI employee tracker for managing departments, roles, and employees with Node, Inquirer, and MySQL",
   "main": "employee.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jorguzman100/12_Employee_Tracker.git"
+    "url": "git+https://github.com/jorguzman100/employee-tracker.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jorge Guzman",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jorguzman100/12_Employee_Tracker/issues"
+    "url": "https://github.com/jorguzman100/employee-tracker/issues"
   },
-  "homepage": "https://github.com/jorguzman100/12_Employee_Tracker#readme",
+  "homepage": "https://github.com/jorguzman100/employee-tracker#readme",
   "dependencies": {
     "asciiart-logo": "^0.2.6",
     "inquirer": "^7.2.0",

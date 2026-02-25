@@ -1,155 +1,123 @@
-# Employee Tracker
+# 🧑‍💼 Employee Tracker
 
-A CLI solution for managing company's employees using node, inquirer, and MySQL.
+### A clean terminal-based employee manager for quickly handling departments, roles, and people in a MySQL database.
 
-## Badges
+Employee Tracker is a Node.js CLI app built for the classic “company org data” workflow, but with a smoother setup and a more practical project structure. It lets you manage employees, roles, and departments from the terminal without touching SQL every time.
 
-Code quality and validation
+---
 
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/jorguzman100/12_Employee_Tracker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jorguzman100/12_Employee_Tracker/context:javascript)
-![shields.io](https://img.shields.io/github/languages/top/jorguzman100/12_Employee_Tracker)
-![shields.io](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fjorguzman100.github.io%2F12_Employee_Tracker%2F)
+## ✨ Features
 
-Repository Status
+| | Feature | What It Does |
+|---|---|---|
+| 👥 | Employee CRUD | Create, view, update, and delete employee records from prompts. |
+| 🧩 | Role Management | Manage job titles, salaries, and department assignments. |
+| 🏢 | Department Management | Add, edit, and remove departments directly from the CLI. |
+| 👔 | Employees by Manager | Filter employees by `manager_id` to inspect reporting lines. |
+| 💰 | Department Budget View | Shows total salary budget by department using SQL aggregation. |
+| 🖥️ | Terminal-First UX | Inquirer menus + table output + ASCII banner make it easy to use. |
 
-![shields.io](https://img.shields.io/badge/Repo%20Status-Finished-brightgreen)
-![shields.io](https://img.shields.io/bitbucket/issues/jorguzman100/12_Employee_Tracker)
+---
 
-License
+<p align="center">
+  <img
+    src="./Assets/employee-tracker.gif"
+    alt="Employee Tracker CLI demo"
+    width="680"
+    style="border-radius: 12px; box-shadow: 0 10px 28px rgba(16, 24, 40, 0.18); object-position: top;"
+  />
+</p>
 
-![GitHub](https://img.shields.io/github/license/jorguzman100/12_Employee_Tracker)
+---
 
-## Table of contents
+## 🛠️ Tech Stack
 
-- [Employee Tracker](#employee-tracker)
-  - [Badges](#badges)
-  - [Table of contents](#table-of-contents)
-  - [The challenge](#the-challenge)
-  - [The development process](#the-development-process)
-  - [The Output](#the-output)
-  - [Installation and Usage](#installation-and-usage)
-  - [Credits, tools and other references](#credits-tools-and-other-references)
-  - [Contributing](#contributing)
-  - [Questions](#questions)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=flat-square&logo=javascript&logoColor=F7DF1E)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Inquirer](https://img.shields.io/badge/Inquirer.js-4B32C3?style=flat-square&logo=npm&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![mysql2](https://img.shields.io/badge/mysql2-Promise%20API-0A7EA4?style=flat-square)
 
-## The challenge
+---
 
-To architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
+## 🧩 Project Snapshot
 
-Main elements:
+- `employee.js`: CLI flow, prompts, menus, and table display logic.
+- `lib/query.js`: builds CRUD SQL queries and runs them with `mysql2/promise`.
+- `lib/loadEnv.js`: lightweight `.env` loader so local secrets stay out of source code.
+- `schema.sql`: creates `Departments`, `Roles`, and `Employees` tables.
+- `seeds.sql`: inserts sample data for quick testing and demos.
+- `Assets/`: screenshots/GIF used in documentation.
 
-- [x] CLI applicacion
-- [x] MySQL database
-- [x] CRUD model operation
-  - Create
-  - Read
-  - Update
-  - Delete
+---
 
-## The development process
+## 🚀 Live Demo
 
-In order to accomplish the challenge, the following steps were done:
+![Deployment](https://img.shields.io/badge/Deployment-Not%20deployed%20yet-lightgrey?style=for-the-badge)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?style=for-the-badge&logo=github)](https://github.com/jorguzman100/employee-tracker)
 
-1. Understand the purpose, concept of the application.
-2. Understand the database schemas.
-3. Define functionality.
-4. Research assets.
-5. Include dependencies.
-6. Develop the functionality.
-7. Final review and proper documentation.
+No public deployment yet. This project is ready to run locally now and is set up with env-based DB config for later deployment.
 
-## The Output
+---
 
-With the described process we were able to create a useful, efficient and responsive application that ...
+## 💻 Run it locally
 
-**User stories**
+Requirements:
 
-1. As a <role> I can <capability>, so that <receive benefit>
-2. As a <role> I can <capability>, so that <receive benefit>
-3. As a <role> I can <capability>, so that <receive benefit>
+- Node.js
+- MySQL server running locally (or reachable host)
 
-**The application**
+```bash
+git clone https://github.com/jorguzman100/employee-tracker.git
+cd employee-tracker
+npm install
+cp .env.example .env
+# Edit .env with your MySQL credentials
+```
 
-![Screenshot1](./Assets/screenshot1.png)
-![Screenshot1](./Assets/screenshot2.png)
-![Screenshot1](./Assets/screenshot3.png)
-![Screenshot1](./Assets/screenshot4.png)
+Create the database and seed it:
 
-## Installation and Usage
+```bash
+mysql -u root -p < schema.sql
+mysql -u root -p < seeds.sql
+```
 
-The project was uploaded to [GitHub](https://github.com/) at the following repository:
-[https://github.com/jorguzman100/12_Employee_Tracker](https://github.com/jorguzman100/12_Employee_Tracker)
+Start the app:
 
-You can access the deployed application with the GitHup Pages link:
-[https://jorguzman100.github.io/12_Employee_Tracker/](https://jorguzman100.github.io/12_Employee_Tracker/)
+```bash
+npm start
+```
 
-To install the project follow these steps:
+CLI entry point:
 
-1. Step
-2. Step
-3. Step
+- `employee.js` (runs through `npm start`)
 
-## Credits, tools and other references
+<details>
+<summary>🔑 Required environment variables</summary>
 
-**Colaborators**
+```env
+# .env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_NAME=employeesDB
+```
+</details>
 
-Our appreciation for those who have contributed to the project:
+---
 
-[Name](http:"#")
+## 📸 More Screens
 
-[Name](http:"#")
-<creator><GitHub Profile>
+<p align="center">
+  <img src="./Assets/screenshot1.png" alt="Employee Tracker main view screenshot" width="700" />
+</p>
+<p align="center">
+  <img src="./Assets/schema.png" alt="Database schema screenshot" width="700" />
+</p>
 
-**Third Party Assets**
+---
 
-[Creator](http:"#")
-<creator><Primary web presence>
+## 🤝 Contributors
 
-[Balsamiq](https://balsamiq.com/)
-
-[Canvas](https://www.canva.com/)
-
-[Placeholder](https://placeholder.com/)
-
-[Random images](http://lorempixel.com/)
-
-[Lorem Ipsum](www.lipsum.com)
-
-[HTML Color Picker](https://www.w3schools.com/colors/colors_picker.asp)
-
-[Moment.js](https://momentjs.com/)
-
-[CSS Materialize](https://materializecss.com/)
-
-[Bootstrap](https://getbootstrap.com/)
-
-[Test CORS](https://www.test-cors.org/)
-
-[Font Awesome](https://fontawesome.com/)
-
-[Google’s Material Icons](https://google.github.io/material-design-icons/)
-
-[Shields.io](https://shields.io/)
-
-[LGTM](https://lgtm.com/)
-
-[Website Grader](https://website.grader.com/)
-
-[Markup Validation Service](https://validator.w3.org/)
-
-**Tutorials**
-
-[Name](http:"#")
-<name><link>
-
-## Contributing
-
-- Pull requests are welcome.
-- For major changes, please open an issue first to discuss what you would like to change.
-- Please make sure to update tests as appropriate.
-
-## Questions
-
-If you have questions or you want to share comments, we will be glad to hear from you. Please contact us at jorguzman100@gmail.com.
-
-![GitHubProfilePicture](https://avatars3.githubusercontent.com/u/61070430?s=400&u=2b857b54876d926e32fa510d9363e301820b0c03&v=4)
+- **Jorge Guzman** · [@jorguzman100](https://github.com/jorguzman100)

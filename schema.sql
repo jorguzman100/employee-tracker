@@ -26,5 +26,5 @@ CREATE TABLE Employees (
   manager_id INT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (role_id) REFERENCES Roles (role_id)
-  -- FOREIGN KEY (manager_id) REFERENCES Employees (id)
+  -- manager_id is stored without a foreign key so seed inserts stay simple.
 );
