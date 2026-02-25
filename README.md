@@ -21,7 +21,7 @@ Employee Tracker is a Node.js CLI app built for the classic "company org data" w
 
 <p align="center">
   <img
-    src="./Assets/employee-tracker.gif"
+    src="./assets/employee-tracker.webp"
     alt="Employee Tracker CLI demo"
     width="680"
     style="border-radius: 12px; box-shadow: 0 10px 28px rgba(16, 24, 40, 0.18); object-position: top;"
@@ -104,17 +104,6 @@ DB_PASSWORD=your_mysql_password
 DB_NAME=employeesDB
 ```
 </details>
-
----
-
-## 📸 More Screens
-
-<p align="center">
-  <img src="./Assets/screenshot1.png" alt="Employee Tracker main view screenshot" width="700" />
-</p>
-<p align="center">
-  <img src="./Assets/schema.png" alt="Database schema screenshot" width="700" />
-</p>
 
 ---
 
