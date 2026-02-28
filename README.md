@@ -37,6 +37,7 @@ Employee Tracker is a Node.js CLI app built for the classic "company org data" w
 ![Inquirer](https://img.shields.io/badge/Inquirer.js-4B32C3?style=flat-square&logo=npm&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 ![mysql2](https://img.shields.io/badge/mysql2-Promise%20API-0A7EA4?style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
 ---
 
