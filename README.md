@@ -42,55 +42,58 @@ Employee Tracker is a Node.js CLI app built for the classic "company org data" w
 
 ## 🧩 Project Snapshot
 
-- `employee.js`: CLI flow, prompts, menus, and table display logic.
-- `lib/query.js`: builds CRUD SQL queries and runs them with `mysql2/promise`.
-- `lib/loadEnv.js`: lightweight `.env` loader so local secrets stay out of source code.
-- `schema.sql`: creates `Departments`, `Roles`, and `Employees` tables.
-- `seeds.sql`: inserts sample data for quick testing and demos.
-- `Assets/`: screenshots/GIF used in documentation.
+- `src/index.js`: CLI flow, prompts, menus, and table display logic.
+- `src/scripts/ensureDatabase.js`: prestart check that auto-starts MySQL in Docker when needed.
+- `src/lib/query.js`: builds CRUD SQL queries and runs them with `mysql2/promise`.
+- `src/lib/loadEnv.js`: lightweight `.env` loader so local secrets stay out of source code.
+- `docker-compose.yml`: local MySQL container setup with persistent volume.
+- `db/schema.sql`: creates `Departments`, `Roles`, and `Employees` tables.
+- `db/seeds.sql`: inserts sample data for quick testing and demos.
+- `assets/`: screenshots/GIF used in documentation.
 
 ---
 
 ## 🚀 Live Demo
 
-![Deployment](https://img.shields.io/badge/Deployment-Not%20deployed%20yet-lightgrey?style=for-the-badge)
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?style=for-the-badge&logo=github)](https://github.com/jorguzman100/employee-tracker)
+![Deployment](https://img.shields.io/badge/Deployment-Not%20deployed-lightgrey?style=for-the-badge)
 
-No public deployment yet. This project is ready to run locally now and is set up with env-based DB config for later deployment.
+Being a CLI, this project is ready to run locally 😉.
 
 ---
 
-## 💻 Run it locally
+## 💻 Run It Locally
 
-Requirements:
+1. Install requirements (one-time): Node.js (LTS) and Docker Desktop.
 
-- Node.js
-- MySQL server running locally (or reachable host)
+2. Open Docker Desktop and wait until it shows as running.
+
+3. Clone and install dependencies:
 
 ```bash
 git clone https://github.com/jorguzman100/employee-tracker.git
 cd employee-tracker
 npm install
-cp .env.example .env
-# Edit .env with your MySQL credentials
 ```
 
-Create the database and seed it:
-
-```bash
-mysql -u root -p < schema.sql
-mysql -u root -p < seeds.sql
-```
-
-Start the app:
+4. Start the CLI:
 
 ```bash
 npm start
 ```
 
-CLI entry point:
+CLI entry point: `src/index.js` (through `npm start`)
 
-- `employee.js` (runs through `npm start`)
+On first start, `npm start` automatically:
+
+- Starts MySQL in Docker if it is not already running.
+- Creates the database/tables if needed.
+- Seeds sample data if tables are empty.
+
+Optional: create `.env` only if you want custom DB settings (defaults already work):
+
+```bash
+cp .env.example .env
+```
 
 <details>
 <summary>🔑 Required environment variables</summary>
@@ -104,6 +107,14 @@ DB_PASSWORD=your_mysql_password
 DB_NAME=employeesDB
 ```
 </details>
+
+`.env` is in `.gitignore`; keep real credentials only in your local `.env` file.
+
+### Common setup errors
+
+- `Database startup failed: Could not start MySQL with Docker`: install and open Docker Desktop, then run `npm start` again.
+- `Access denied for user`: if you use `.env`, check `DB_USER` and `DB_PASSWORD`.
+- Port `3306` already in use: stop your local MySQL service or change `DB_PORT` in `.env`.
 
 ---
 

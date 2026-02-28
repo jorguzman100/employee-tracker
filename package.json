@@ -2,11 +2,12 @@
   "name": "employee-tracker",
   "version": "1.0.0",
   "description": "CLI employee tracker for managing departments, roles, and employees with Node, Inquirer, and MySQL",
-  "main": "employee.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node employee.js",
-    "watch": "nodemon employee.js"
+    "prestart": "node src/scripts/ensureDatabase.js",
+    "start": "node src/index.js",
+    "watch": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,7 @@
   "homepage": "https://github.com/jorguzman100/employee-tracker#readme",
   "dependencies": {
     "asciiart-logo": "^0.2.6",
-    "inquirer": "^7.2.0",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.1.0"
+    "inquirer": "^8.2.7",
+    "mysql2": "^3.18.2"
   }
 }

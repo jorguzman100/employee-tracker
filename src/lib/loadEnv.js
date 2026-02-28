@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const envPath = path.join(__dirname, "..", ".env");
+const envPath = path.join(__dirname, "..", "..", ".env");
 
 const parseLine = (line) => {
     const trimmedLine = line.trim();

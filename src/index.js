@@ -1,8 +1,9 @@
 const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 
+const bootstrapDatabase = require("./lib/bootstrapDatabase");
 const Query = require("./lib/query");
-const config = require("./package.json");
+const config = require("../package.json");
 
 const selectCRUD = async () => {
     const answer = await inquirer.prompt([
@@ -392,6 +393,7 @@ const displayAscii = () => {
 };
 
 const init = async () => {
+    await bootstrapDatabase();
     displayAscii();
 
     await inquirer.prompt([
