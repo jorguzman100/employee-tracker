@@ -58,7 +58,13 @@ Employee Tracker is a Node.js CLI app built for the classic "company org data" w
 
 ![Deployment](https://img.shields.io/badge/Deployment-Not%20deployed-lightgrey?style=for-the-badge)
 
-Being a CLI, this project is ready to run locally 😉.
+Being a CLI, this project is ready to run locally 😉. 
+
+To explore other projects:
+
+[![Visit Portfolio](https://img.shields.io/badge/Visit%20My%20Portfolio-jorgeguzman.dev-22c55e?style=for-the-badge)](https://portfolio.jorgeguzman.dev/)
+
+
 
 ---
 
